@@ -1,18 +1,12 @@
 {
-  "name": "csc-307-app",
+  "name": "express-backend",
   "version": "1.0.0",
   "description": "",
   "license": "ISC",
   "author": "",
-  "type": "commonjs",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "workspaces": [
-    "packages/*"
-  ],
-  "dependencies": {
-    "express": "^5.2.1"
   }
 }
