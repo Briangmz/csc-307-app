@@ -4,46 +4,40 @@ const app = express();
 const port = 8000;
 const users = {
     users_list: [
-        {
-            id: "xyz789",
-            name: "Charlie",
-            job: "Janitor"
-        },
+        {id: "xyz789", name: "Charlie", job: "Janitor"},
 
-        {
-            id: "abc123",
-            name: "Mac",
-            job: "Bouncer"
-        },
+        {id: "abc123", name: "Mac", job: "Bouncer"},
 
-        {
-            id: "ppp222",
-            name: "Mac",
-            job: "Professor"
-        },
+        {id: "ppp222", name: "Mac", job: "Professor"},
 
-        {
-            id: "yat999",
-            name: "Dee",
-            job: "Aspiring Actress"
-        },
+        {id: "yat999", name: "Dee", job: "Aspiring Actress"},
 
-        {
-            id: "zap555",
-            name: "Dennis",
-            job: "Bartender"
-        }
+        {id: "zap555", name: "Dennis", job: "Bartender"}
     ]
+};
+
+const findUserByName = (name) => {
+    return users["users_list"].filter(
+        user => user["name"] === name
+    );
 };
 
 app.use(express.json());
 
 app.get("/", (req, res) => {
-    res.send("Hello World");
+    res.send("Hello World, I'm cool");
 });
 
 app.get("/users", (req, res) => {
-    res.send(users);
+    const name = req.query.name;
+
+    if (name != undefined) {
+        let result = findUserByName(name);
+        result = { users_list: result };
+        res.send(result);
+    } else {
+        res.send(users);
+    }
 });
 
 app.listen(port, () => {
