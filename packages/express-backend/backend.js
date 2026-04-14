@@ -12,17 +12,20 @@ const users = {
         {id: "ppp222", name: "Mac", job: "Professor"},
         {id: "yat999", name: "Dee", job: "Aspiring Actress"},
         {id: "zap555", name: "Dennis", job: "Bartender"},
-        {id: "qwe123", name: "Zookeeper", job: "Cindy"}
+        {id: "qwe123", name: "Cindy", job: "Zookeeper"}
     ]
 };
 
 const findUserById = (id) =>
     users["users_list"].find((user) => user["id"] === id);
 
-const findUserByName = (name) => {
-    return users["users_list"].filter(
-        user => user["name"] === name
-    );
+const findUsersByQuery = (name, job) => {
+  return users.users_list.filter((user) => {
+      const matchesName = name === undefined || user.name === name;
+      const matchesJob = job === undefined || user.job === job;
+
+      return matchesName && matchesJob;
+  });
 };
 
 const addUser = (user) => {
@@ -67,11 +70,11 @@ app.get("/", (req, res) => {
 
 app.get("/users", (req, res) => {
     const name = req.query.name;
+    const job = req.query.job;
 
-    if (name != undefined) {
-        let result = findUserByName(name);
-        result = { users_list: result };
-        res.send(result);
+    if (name !== undefined || job !== undefined) {
+        const result = findUsersByQuery(name, job);
+        res.send({ users_list: result });
     } else {
         res.send(users);
     }
