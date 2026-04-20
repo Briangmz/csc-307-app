@@ -10,6 +10,17 @@ function MyApp() {
         return promise;
     }
 
+    function postUsers(person) {
+        const promise = fetch("http://localhost:8000/users", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            }, body: JSON.stringify(person)
+        });
+
+        return promise;
+    }
+
     function removeOneCharacter(index) {
         const updated = characters.filter((character, i) => {
             return i !== index;
@@ -19,7 +30,11 @@ function MyApp() {
     }
 
     function updateList(person) {
-        setCharacters([...characters, person]);
+        postUsers(person)
+            .then(() => setCharacters([...characters, person]))
+            .catch((error) => {
+               console.log(error);
+            });
     }
 
     useEffect(() => {
