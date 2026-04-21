@@ -83,7 +83,7 @@ app.delete("/users/:id", (req, res) => {
    }
 
    else {
-       res.status(200).send(deletedUser);
+       res.status(204).send();
    }
 });
 
