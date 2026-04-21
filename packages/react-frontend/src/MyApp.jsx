@@ -34,7 +34,7 @@ function MyApp() {
             .then((res) => {
                 if (res.status === 201) {
                     return res.json().then((newUser) => {
-                        setCharacters([...characters, newUser]);
+                        setCharacters((prev) => [...prev, newUser]);
                     });
                 }
             })
