@@ -31,9 +31,29 @@ const findUsersByQuery = (name, job) => {
   });
 };
 
+const generateId = () => {
+    const letters = "abcdefghijklmnopqrstuvwxyz";
+    let letterPart = "";
+
+    for (let i = 0; i < 3; i++) {
+        letterPart += letters[Math.floor(Math.random() * letters.length)];
+    }
+
+    const numberPart = Math.floor(Math.random() * 1000)
+        .toString()
+        .padStart(3, "0");
+
+    return `${letterPart}${numberPart}`;
+};
+
 const addUser = (user) => {
-    users["users_list"].push(user);
-    return user;
+    const newUser = {
+        id: generateId(),
+        ...user
+    };
+
+    users["users_list"].push(newUser);
+    return newUser;
 };
 
 const deleteUserById = (id) => {
@@ -50,8 +70,8 @@ const deleteUserById = (id) => {
 
 app.post("/users", (req, res) => {
    const userToAdd = req.body;
-   addUser(userToAdd);
-   res.status(201).send(userToAdd);
+   const newUser = addUser(userToAdd);
+   res.status(201).send(newUser);
 });
 
 app.delete("/users/:id", (req, res) => {
