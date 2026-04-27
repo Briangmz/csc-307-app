@@ -1,5 +1,24 @@
 import express from "express";
 import cors from "cors";
+import dotenv from "dotenv";
+import mongoose from "mongoose";
+// import {
+//     getUsers,
+//     createUser,
+//     getUserById,
+//     deleteUser,
+//     getUsersByNameAndJob
+// } from "./services/user-service.js";
+
+dotenv.config();
+
+const { MONGO_CONNECTION_STRING } = process.env;
+
+mongoose.set("debug", true);
+mongoose
+    .connect(MONGO_CONNECTION_STRING + "users")
+    .then(() => console.log("Connected to MongoDB"))
+    .catch((error) => console.log("Mongo error:", error));
 
 const app = express();
 const port = 8000;
