@@ -5,6 +5,11 @@ export const getUsers = () => {
   return User.find();
 };
 
+// Get users by both name and job
+export const getUsersByNameAndJob = (name, job) => {
+  return User.find({ name, job });
+};
+
 // Create user
 export const createUser = (user) => {
   return User.create(user);
@@ -19,4 +24,3 @@ export const getUserById = (id) => {
 export const deleteUser = (id) => {
   return User.findByIdAndDelete(id);
 };
-
